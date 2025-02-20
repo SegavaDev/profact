@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +33,7 @@ public class FacturaRestController {
      * 
      * @return una entidad con el consecutivo generado o encontrado
      */
-    @PostMapping("/generar-consecutivo")
+    @GetMapping("/generar-consecutivo")
     public ResponseEntity<ResponseData> generarConsecutivoFactura() {
 
         ResponseData responseData = new ResponseData();
