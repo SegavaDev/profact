@@ -4,5 +4,5 @@ Prueba técnica aplicada a Somic soluciones
 # 📁 Carpeta backend
 [BackEnd](https://github.com/SegavaDev/profact/tree/backend)
 
-# 📁 Carpeta fronend
+# 📁 Carpeta frontend
 [FrontEnd](https://github.com/SegavaDev/profact/tree/frontend)
