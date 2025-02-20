@@ -26,21 +26,25 @@ http://localhost:4000
 
 1. __Artículos__
 
-    - buscarPorCodigo
+    - Buscar por código
         ~~~
         /api/v1/articulos/codigo
         ~~~
 
 1. __Factura__
-    - generarConsecutivoFactura
+
+    - generar consecutivo factura
         ~~~
         /api/v1/factura/generar-consecutivo
+        ~~~
+    - generar factura
+        ~~~
         /api/v1/factura/generar-factura
         ~~~
 
 1. __Nits__
 
-    - buscarPorDocumento
+    - Buscar por documento
         ~~~
         /api/v1/nits/documento
         ~~~
