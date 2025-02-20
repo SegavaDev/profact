@@ -1,0 +1,26 @@
+.header__distribucion {
+    width: 100%;
+    height: 80px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 80px;
+    padding-left: 10px;
+}
+
+h1 {
+    font-size: 28pt;
+    color: var(--color-principal);
+    font-weight: bold;
+}
+
+.img__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    & img {
+        width: 100%;
+    }
+}
