@@ -6,15 +6,19 @@
             <div class="factura__info">
                 <div class="separador">
                     <label>Número de factura</label>
-                    <span>00000001</span>
+                    <span>{{ consecutivo }}</span>
                 </div>
                 <div class="separador">
                     <label>Fecha</label>
-                    <span>12/12/2025</span>
+                    <span>{{ fecha }}</span>
                 </div>
                 <div class="separador">
                     <label>Fecha de vencimiento</label>
-                    <span>12/12/2025</span>
+                    @if (fechaVence) {
+                    <span>{{ fechaVence }}</span>
+                    } @else {
+                    <span></span>
+                    }
                 </div>
                 <div class="container__btn">
                     <div class="separador">
@@ -31,77 +35,173 @@
                     </div>
                 </div>
             </div>
-            <div class="nit__info">
-                <div class="separador">
+            <form class="nit__info" [formGroup]="getForm(nomForms[0])">
+                <div class="separador separador__modDesp">
                     <label>Nit del cliente</label>
-                    <input type="text">
+                    <input
+                        type="text"
+                        formControlName="documento"
+                        id="documento"
+                        (input)="getNits($event)"
+                        autocomplete="off"
+                    />
+                    @if(listDespNits) {
+                    <ul>
+                        @for (d of listClientes; track $index) {
+                        <li (click)="selectCliente(d)">{{ d.nitDoc }}</li>
+                        }
+                    </ul>
+                    }
                 </div>
+                @if(cliente){
                 <div class="separador">
                     <label>Cupo</label>
-                    <span>12/12/2025</span>
+                    <span>{{ cliente.nitCupo }}</span>
                 </div>
                 <div class="separador">
                     <label>Plazo</label>
-                    <span>12/12/2025</span>
+                    <span>{{ cliente.nitPlazo }}</span>
                 </div>
                 <div class="separador">
                     <label>Cartera</label>
-                    <span>00000001</span>
+                    <span>{{ cliente.nitCartera }}</span>
                 </div>
                 <div class="separador">
                     <label>Disponible</label>
-                    <span>12/12/2025</span>
+                    <span>{{ cliente.nitCupo - cliente.nitCartera }}</span>
                 </div>
-            </div>
-            <fieldset>
+                } @else {
+                <div class="separador">
+                    <label>Cupo</label>
+                    <span></span>
+                </div>
+                <div class="separador">
+                    <label>Plazo</label>
+                    <span></span>
+                </div>
+                <div class="separador">
+                    <label>Cartera</label>
+                    <span></span>
+                </div>
+                <div class="separador">
+                    <label>Disponible</label>
+                    <span></span>
+                </div>
+                }
+            </form>
+            <form class="form__articulo" [formGroup]="getForm(nomForms[1])">
                 <div class="articulo__info">
-                    <div class="separador">
+                    <div class="separador separador__modDesp">
                         <label>Cod. artículo</label>
-                        <input type="text">
+                        <input
+                            type="text"
+                            formControlName="codigo"
+                            id="codigo"
+                            autocomplete="off"
+                            (input)="getArticulos($event)"
+                        />
+                        @if(listDespArticulos) {
+                        <ul>
+                            @for (a of listArticulos; track $index) {
+                            <li (click)="selectArticulo(a)">{{ a.artCod }} {{a.artNom}}</li>
+                            }
+                        </ul>
+                        }
                     </div>
+                    @if (articulo) {
                     <div class="separador">
                         <label>Nombre</label>
-                        <span>12/12/2025</span>
+                        <span>{{ articulo.artNom }}</span>
                     </div>
                     <div class="separador">
                         <label>Laboratorio</label>
-                        <span>12/12/2025</span>
+                        <span>{{ articulo.artLab }}</span>
                     </div>
+                    } @else {
+                    <div class="separador">
+                        <label>Nombre</label>
+                        <span></span>
+                    </div>
+                    <div class="separador">
+                        <label>Laboratorio</label>
+                        <span></span>
+                    </div>
+                    }
                     <div class="separador">
                         <label>Naturaleza</label>
-                        <select>
-                            <option value="-" selected>➖</option>
-                            <option value="+">➕</option>
+                        <select
+                            (change)="validarNaturaleza($event)"
+                            formControlName="naturaleza"
+                            id="naturaleza"
+                        >
+                            <option value="-" [defaultSelected]="'-'">
+                                ➖ Salida
+                            </option>
+                            <option value="+">➕ Ingreso</option>
                         </select>
                     </div>
+                    @if (articulo) {
                     <div class="separador">
                         <label>Saldo</label>
-                        <span>12/12/2025</span>
+                        <span>{{ articulo.artSaldo }}</span>
                     </div>
+                    } @else {
+                    <div class="separador">
+                        <label>Saldo</label>
+                        <span></span>
+                    </div>
+                    }
                 </div>
                 <div class="articulo__info">
                     <div class="separador">
                         <label>Unidades</label>
-                        <input type="number">
+                        <input
+                            type="number"
+                            formControlName="unidades"
+                            id="unidades"
+                            (input)="calcularTotalesArticulo()"
+                        />
                     </div>
                     <div class="separador">
                         <label>Costos</label>
-                        <span>12/12/2025</span>
+                        <input
+                            type="text"
+                            formControlName="costos"
+                            id="costos"
+                            (input)="calcularTotalesArticulo()"
+                        />
                     </div>
                     <div class="separador">
                         <label>Precio venta</label>
-                        <span>12/12/2025</span>
+                        <input
+                            type="number"
+                            formControlName="precioVenta"
+                            id="precioVenta"
+                            (input)="calcularTotalesArticulo()"
+                        />
                     </div>
+
+                    @if (articulo) {
                     <div class="separador">
                         <label>Total costo</label>
-                        <span>12/12/2025</span>
+                        <span>{{ totalCosto }}</span>
                     </div>
                     <div class="separador">
                         <label>Total venta</label>
-                        <span>00000001</span>
+                        <span>{{ totalVenta }}</span>
                     </div>
+                    } @else {
+                    <div class="separador">
+                        <label>Total costo</label>
+                        <span></span>
+                    </div>
+                    <div class="separador">
+                        <label>Total venta</label>
+                        <span></span>
+                    </div>
+                    }
                 </div>
-            </fieldset>
+            </form>
         </div>
     </form>
 </div>
