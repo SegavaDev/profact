@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Articulo } from '@core/models/articulos/Articulo.class';
 import { Cliente } from '@core/models/clientes/Cliente.class';
+import { Kardex } from '@core/models/facturas/Kardex.class';
 import { BuscarArticulosService } from '@core/services/articulos/buscar-articulos.service';
 import { ObtenerNitsService } from '@core/services/clientes/obtener-nits.service';
 import { ObtenerConsecutivoFactService } from '@core/services/facturas/obtener-consecutivo-fact.service';
@@ -37,6 +38,9 @@ export class FacturaComponent {
     /** Artículo */
     articulo!: Articulo;
     listArticulos!: Articulo[];
+    /** Kardex de factura */
+    kardex!: Kardex;
+    listKardex!: Kardex[];
     /* Lista desplegable de nits */
     listDespNits: boolean = false;
     /* Lista desplegable de artículos */
