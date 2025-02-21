@@ -30,14 +30,14 @@ public class NitEntity {
   /**
    * Documento del nit
    */
-  @Size(min = 8, max = 10, message = "El documento del nit debe contener mínimo 8 dígitos y máximo 10")
+  @Size(min = 10, max = 10, message = "El documento del nit debe contener mínimo 10 dígitos y máximo 10")
   @Column(unique = true, nullable = false)
   private String nitDoc;
 
   /**
    * Nombre del nit
    */
-  @Size(min = 3, message = "El nombre del nit debe contener mínimo 8 dígitos y máximo 10")
+  @Size(min = 3, message = "El nombre del nit debe contener mínimo 3 caracteres")
   @Column(nullable = false)
   private String nitNom;
 
