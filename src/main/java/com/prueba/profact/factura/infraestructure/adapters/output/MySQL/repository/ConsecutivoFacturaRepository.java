@@ -76,6 +76,7 @@ public class ConsecutivoFacturaRepository implements IConsFacturaRepository {
 
             if (cFacturaEntity != null) {
                 cFacturaEntity.setConsFactNum(factNum);
+                cFacturaEntity.setConsFactActivo(true);
                 this.ENTITY_MANAGER.persist(cFacturaEntity);
                 return true;
             } else {
