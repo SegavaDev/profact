@@ -1,5 +1,7 @@
 package com.prueba.profact.articulos.application.services;
 
+import java.util.List;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,22 @@ public class ArticulosServices implements IArticuloServices {
     public Articulo buscarPorCodigo(final String codigo) throws ArticuloServicesException, NoFoundArticuloException {
         try {
             return this.ARTICULO_REPOSITORY.buscarPorCodigo(codigo)
+                    .orElseThrow(
+                            () -> new NoFoundArticuloException(MensajesError.NO_ENCONTRADO.lanzar()));
+
+        } catch (EmptyResultDataAccessException n) {
+            System.out.println("Mensaje error ArticulosServices/buscarPorCodigo: " + n);
+            throw new NoFoundArticuloException(n.getMessage());
+        } catch (Exception e) {
+            System.out.println("Mensaje error ArticulosServices/buscarPorCodigo: " + e);
+            throw new ArticuloServicesException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Articulo> buscarPorCodigoList(final String codigo) throws ArticuloServicesException, NoFoundArticuloException {
+        try {
+            return this.ARTICULO_REPOSITORY.buscarPorCodigoList(codigo)
                     .orElseThrow(
                             () -> new NoFoundArticuloException(MensajesError.NO_ENCONTRADO.lanzar()));
 

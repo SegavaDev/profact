@@ -6,7 +6,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.prueba.profact.nits.application.exceptions.NitNoCupoException;
-import com.prueba.profact.nits.application.exceptions.NitNoPlazoException;
 import com.prueba.profact.nits.application.exceptions.NitServicesException;
 import com.prueba.profact.nits.application.exceptions.NoFoundNitException;
 import com.prueba.profact.nits.application.ports.input.INitServices;
@@ -69,9 +68,6 @@ public class NitServices implements INitServices {
             }
             if(!nitValid.tieneCupo(nit.getNitCartera())) {
                 throw new NitNoCupoException(MensajesError.CUPO.lanzar());
-            }
-            if(!nitValid.hayPlazo(nit.getNitPlazo())) {
-                throw new NitNoPlazoException(MensajesError.PLAZO.lanzar());
             }
 
             return this.NIT_REPOSITORY.actualizar(nit);

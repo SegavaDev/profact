@@ -1,7 +1,5 @@
 package com.prueba.profact.nits.infraestructure.adapters.output.MySQL.models;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,10 +46,10 @@ public class NitEntity {
   private double nitCupo;
 
   /**
-   * Fecha plazo del nit
+   * Número de días de plazo del nit
    */
   @Column(nullable = false)
-  private LocalDate nitPlazo;
+  private int nitPlazo;
 
   /**
    * Cartera o deuda del nit

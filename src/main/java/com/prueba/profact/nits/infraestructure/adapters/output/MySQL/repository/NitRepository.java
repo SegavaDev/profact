@@ -28,7 +28,8 @@ public class NitRepository implements INitRepository {
     private final EntityManager ENTITY_MANAGER;
 
     /** Query para buscar un nit por su documento */
-    private final String BUSCAR_DOCUMENTO = "SELECT n FROM nits n WHERE n.nitDoc LIKE '%?1%'";
+    private final String BUSCAR_DOCUMENTO = "SELECT n FROM nits n WHERE n.nitDoc = ?1";
+    private final String BUSCAR_DOCUMENTO_LIST = "SELECT n FROM nits n WHERE n.nitDoc LIKE CONCAT('%', ?1, '%')";
 
     /**
      * Busca un nit por su Id
@@ -84,7 +85,7 @@ public class NitRepository implements INitRepository {
                 try {
                     return Optional.of(
                             NitMapperOut.INSTANCIA.entityToBase(
-                                    this.ENTITY_MANAGER.createQuery(this.BUSCAR_DOCUMENTO, NitEntity.class)
+                                    this.ENTITY_MANAGER.createQuery(this.BUSCAR_DOCUMENTO_LIST, NitEntity.class)
                                             .setParameter(1, documento)
                                             .getResultList()));
         

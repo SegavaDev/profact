@@ -56,8 +56,8 @@ public class ArticuloRestController {
         }
 
         try {
-            ArticuloDTO artRespuesta = ArticuloControllerMapper.INSTANCIA.baseToDto(
-                    articuloServices.buscarPorCodigo(codigo));
+            List<ArticuloDTO> artRespuesta = ArticuloControllerMapper.INSTANCIA.baseToDto(
+                    articuloServices.buscarPorCodigoList(codigo));
 
             if (artRespuesta != null) {
                 responseData.setMensaje(MensajesRespuesta.ENCONTRADA.responder());

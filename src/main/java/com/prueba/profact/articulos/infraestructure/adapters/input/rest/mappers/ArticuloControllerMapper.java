@@ -1,5 +1,7 @@
 package com.prueba.profact.articulos.infraestructure.adapters.input.rest.mappers;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -28,5 +30,19 @@ public interface ArticuloControllerMapper {
      * @return clase DTO
       */
     ArticuloDTO baseToDto(final Articulo articulo);
+
+    /**
+     * Mapea un DTO a una clase de dominio
+     * @param articuloDtoList clase a mapear
+     * @return clase base de dominio
+      */
+      List<Articulo> dtoToBase(final List<ArticuloDTO> articuloDtoList);
+
+      /**
+       * Mapea una clase de dominio a un DTO
+       * @param articuloList clase a mapear
+       * @return clase DTO
+        */
+      List<ArticuloDTO> baseToDto(final List<Articulo> articuloList);
     
 }
