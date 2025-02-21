@@ -60,7 +60,7 @@ public class NitRestController {
         }
 
         try {
-            NitDTO artRespuesta = NitControllerMapper.INSTANCIA.baseToDto(
+            List<NitDTO> artRespuesta = NitControllerMapper.INSTANCIA.baseToDto(
                     nitServices.buscarPorDocumento(documento));
 
             if (artRespuesta != null) {

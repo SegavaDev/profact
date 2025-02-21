@@ -1,5 +1,6 @@
 package com.prueba.profact.nits.application.ports.output;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.prueba.profact.nits.application.exceptions.NitServicesException;
@@ -20,6 +21,16 @@ public interface INitRepository {
  * @throws NitServicesException 
    */
   Optional<Nit> buscarPorId(final long id) throws NitException, NitServicesException;
+
+  /**
+   * Busca un nit por su documento
+   * 
+   * @param documento documento a buscar
+   * @return lista de clases Nit
+ * @throws com.prueba.profact.nits.application.exceptions.NoFoundNitException 
+ * @throws NitServicesException 
+   */
+  Optional<List<Nit>> buscarListPorDocumento(final String documento) throws NitException, NoFoundNitException, NitServicesException, com.prueba.profact.nits.application.exceptions.NoFoundNitException;
 
   /**
    * Busca un nit por su documento

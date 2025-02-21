@@ -1,5 +1,7 @@
 package com.prueba.profact.nits.application.ports.input;
 
+import java.util.List;
+
 import com.prueba.profact.nits.application.exceptions.NitServicesException;
 import com.prueba.profact.nits.application.exceptions.NoFoundNitException;
 import com.prueba.profact.nits.domain.models.Nit;
@@ -22,11 +24,11 @@ public interface INitServices {
    * Busca un nit por su documento
    * 
    * @param documento documento a buscar
-   * @return la clase Nit
+   * @return la lista de clases Nit
    * @throws NoFoundNitException
    * @throws NitServicesException
    */
-  Nit buscarPorDocumento(final String documento) throws NitServicesException, NoFoundNitException;
+  List<Nit> buscarPorDocumento(final String documento) throws NitServicesException, NoFoundNitException;
 
   /**
    * Actualiza un nit en la base de datos

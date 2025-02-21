@@ -1,5 +1,7 @@
 package com.prueba.profact.nits.application.services;
 
+import java.util.List;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +44,9 @@ public class NitServices implements INitServices {
     }
 
     @Override
-    public Nit buscarPorDocumento(final String documento) throws NitServicesException, NoFoundNitException {
+    public List<Nit> buscarPorDocumento(final String documento) throws NitServicesException, NoFoundNitException {
         try {
-            return this.NIT_REPOSITORY.buscarPorDocumento(documento)
+            return this.NIT_REPOSITORY.buscarListPorDocumento(documento)
                     .orElseThrow(
                             () -> new NoFoundNitException(MensajesError.NO_ENCONTRADO.lanzar()));
 

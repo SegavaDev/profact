@@ -1,5 +1,7 @@
 package com.prueba.profact.nits.infraestructure.adapters.input.rest.mappers;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -30,5 +32,20 @@ public interface NitControllerMapper {
      * @return clase DTO
       */
     NitDTO baseToDto(final Nit nit);
+
+    /**
+     * Mapea una lista de DTO a una de clases de dominio
+     * @param nitDTOList clases a mapear
+     * @return clases base de dominio
+      */
+      @Mapping(target = "nitId", ignore = true)
+      List<Nit> dtoToBase(final List<NitDTO> nitDTOList);
+  
+      /**
+       * Mapea una lista de clases de dominio a una de DTO
+       * @param nitList clases a mapear
+       * @return clases DTO
+        */
+      List<NitDTO> baseToDto(final List<Nit> nitList);
     
 }

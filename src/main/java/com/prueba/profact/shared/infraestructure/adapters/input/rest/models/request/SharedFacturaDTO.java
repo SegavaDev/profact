@@ -25,7 +25,7 @@ public class SharedFacturaDTO implements Serializable {
   /**
    * Fecha de emisión de la factura
    */
-  private double factFecha;
+  private LocalDate factFecha;
 
   /**
    * Fecha de vencimiento de la factura
