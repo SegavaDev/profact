@@ -1,10 +1,12 @@
 package com.prueba.profact.nits.infraestructure.adapters.output.MySQL.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.prueba.profact.nits.application.exceptions.NitServicesException;
 import com.prueba.profact.nits.application.ports.output.INitRepository;
 import com.prueba.profact.nits.domain.models.Nit;
 import com.prueba.profact.nits.infraestructure.adapters.output.MySQL.exceptions.NitException;
@@ -27,6 +29,7 @@ public class NitRepository implements INitRepository {
 
     /** Query para buscar un nit por su documento */
     private final String BUSCAR_DOCUMENTO = "SELECT n FROM nits n WHERE n.nitDoc = ?1";
+    private final String BUSCAR_DOCUMENTO_LIST = "SELECT n FROM nits n WHERE n.nitDoc LIKE CONCAT('%', ?1, '%')";
 
     /**
      * Busca un nit por su Id
@@ -74,6 +77,25 @@ public class NitRepository implements INitRepository {
             System.out.println("Error NitRepository/buscarPorDocumento: " + e);
             throw new NitException(MensajesError.INTERNO.lanzar());
         }
+    }
+
+    @Override
+    public Optional<List<Nit>> buscarListPorDocumento(String documento) throws NitException, NoFoundNitException,
+            NitServicesException, com.prueba.profact.nits.application.exceptions.NoFoundNitException {
+                try {
+                    return Optional.of(
+                            NitMapperOut.INSTANCIA.entityToBase(
+                                    this.ENTITY_MANAGER.createQuery(this.BUSCAR_DOCUMENTO_LIST, NitEntity.class)
+                                            .setParameter(1, documento)
+                                            .getResultList()));
+        
+                } catch (NoResultException n) {
+                    System.out.println("Error NitRepository/buscarPorDocumento: " + n);
+                    throw new NoResultException(MensajesError.NO_ENCONTRADO.lanzar());
+                } catch (Exception e) {
+                    System.out.println("Error NitRepository/buscarPorDocumento: " + e);
+                    throw new NitException(MensajesError.INTERNO.lanzar());
+                }
     }
 
     /**

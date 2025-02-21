@@ -1,7 +1,6 @@
 package com.prueba.profact.nits.infraestructure.adapters.input.rest.models;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class NitDTO implements Serializable {
   /**
    * Fecha plazo del nit
    */
-  private LocalDate nitPlazo;
+  private int nitPlazo;
 
   /**
    * Cartera o deuda del nit

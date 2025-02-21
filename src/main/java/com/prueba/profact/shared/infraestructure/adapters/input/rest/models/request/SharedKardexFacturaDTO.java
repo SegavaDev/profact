@@ -12,11 +12,6 @@ import lombok.Setter;
 public class SharedKardexFacturaDTO implements Serializable {
 
   /**
-   * Id o llave foránea de la factura relacionado
-   */
-  private long krdxFactId;
-
-  /**
    * Id o llave foránea del artículo relacionado
    */
   private long krdxArtId;

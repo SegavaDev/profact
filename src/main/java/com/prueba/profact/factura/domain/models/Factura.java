@@ -30,7 +30,7 @@ public class Factura {
   /**
    * Fecha de emisión de la factura
    */
-  private double factFecha;
+  private LocalDate factFecha;
 
   /**
    * Fecha de vencimiento de la factura

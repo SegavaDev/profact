@@ -1,7 +1,5 @@
 package com.prueba.profact.nits.infraestructure.adapters.output.MySQL.models;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,14 +28,14 @@ public class NitEntity {
   /**
    * Documento del nit
    */
-  @Size(min = 8, max = 10, message = "El documento del nit debe contener mínimo 8 dígitos y máximo 10")
+  @Size(min = 10, max = 10, message = "El documento del nit debe contener mínimo 10 dígitos y máximo 10")
   @Column(unique = true, nullable = false)
   private String nitDoc;
 
   /**
    * Nombre del nit
    */
-  @Size(min = 3, message = "El nombre del nit debe contener mínimo 8 dígitos y máximo 10")
+  @Size(min = 3, message = "El nombre del nit debe contener mínimo 3 caracteres")
   @Column(nullable = false)
   private String nitNom;
 
@@ -48,10 +46,10 @@ public class NitEntity {
   private double nitCupo;
 
   /**
-   * Fecha plazo del nit
+   * Número de días de plazo del nit
    */
   @Column(nullable = false)
-  private LocalDate nitPlazo;
+  private int nitPlazo;
 
   /**
    * Cartera o deuda del nit

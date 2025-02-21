@@ -45,7 +45,7 @@ public class FacturaEntity {
    * Fecha de emisión de la factura
    */
   @Column(nullable = false)
-  private double factFecha;
+  private LocalDate factFecha;
 
   /**
    * Fecha de vencimiento de la factura
