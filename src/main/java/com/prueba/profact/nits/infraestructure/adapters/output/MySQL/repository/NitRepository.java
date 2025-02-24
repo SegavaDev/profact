@@ -13,6 +13,7 @@ import com.prueba.profact.nits.infraestructure.adapters.output.MySQL.exceptions.
 import com.prueba.profact.nits.infraestructure.adapters.output.MySQL.exceptions.NoFoundNitException;
 import com.prueba.profact.nits.infraestructure.adapters.output.MySQL.mappers.NitMapperOut;
 import com.prueba.profact.nits.infraestructure.adapters.output.MySQL.models.NitEntity;
+import com.prueba.profact.nits.infraestructure.adapters.output.MySQL.models.dtos.NitActCarteraDto;
 import com.prueba.profact.shared.domain.models.enums.MensajesError;
 
 import jakarta.persistence.EntityManager;
@@ -40,6 +41,7 @@ public class NitRepository implements INitRepository {
     @Transactional(readOnly = true)
     @Override
     public Optional<Nit> buscarPorId(final long id) throws NitException {
+        System.out.println("Nit id: " + id);
         try {
             return Optional.of(
                     NitMapperOut.INSTANCIA.entityToBase(
@@ -79,8 +81,9 @@ public class NitRepository implements INitRepository {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public Optional<List<Nit>> buscarListPorDocumento(String documento) throws NitException, NoFoundNitException,
+    public Optional<List<Nit>> buscarListPorDocumento(final String documento) throws NitException, NoFoundNitException,
             NitServicesException, com.prueba.profact.nits.application.exceptions.NoFoundNitException {
                 try {
                     return Optional.of(
@@ -113,6 +116,30 @@ public class NitRepository implements INitRepository {
 
         } catch (Exception e) {
             System.out.println("Error NitRepository/actualizar: " + e);
+            throw new NitException(MensajesError.INTERNO.lanzar());
+        }
+    }
+
+    /** 
+     * Actualiza la cartera del cliente/nit
+     */
+    @Transactional
+    @Override
+    public long actualizar(NitActCarteraDto nitActPostFactDto) throws NitException, NitServicesException {
+        try {
+            Optional<Nit> nit = this.buscarPorDocumento(nitActPostFactDto.getNitDoc());
+            
+            if(nit.isPresent()) {
+                nit.get().agregarCartera(nitActPostFactDto.getNitCartera());
+
+                return this.actualizar(nit.get()) ? nit.get().getNitId() : -1;
+            }
+            else {
+                return -1;
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error NitRepository/actualizar NitActPostFactDto: " + e);
             throw new NitException(MensajesError.INTERNO.lanzar());
         }
     }

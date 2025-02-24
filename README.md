@@ -14,8 +14,10 @@ Hexagonal + DDD + vertical slice
 
 [Estructura del proyecto](./estructura_del_proyecto.md)
 
+# Arquitectura
 ![](Diagrama-Arquitectura.webp)
 
+# Diagrama ER
 ![Diagrama ER](./Diagrama-Entidades.webp)
 
 ## EndPoints

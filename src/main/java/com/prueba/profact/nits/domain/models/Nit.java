@@ -49,4 +49,12 @@ public class Nit {
     return cartera <= this.nitCupo;
   }
 
+  /**
+   * Método para agregar a cartera una nueva deuda
+   * @param valor valor a ser sumado
+    */
+  public void agregarCartera(final double valor) {
+    this.nitCartera += valor;
+  }
+
 }

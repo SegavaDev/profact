@@ -2,28 +2,33 @@ package com.prueba.profact.shared.domain.models.dtos;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class SharedArticuloActSaldoDTO implements Serializable {
 
-    /**
-     * Id del artículo
-      */
-    private long artId;
+  /**
+   * Id del artículo
+   */
+  private long artId;
 
-    /**
-     * Código del artículo
-      */
-    private String artCod;
+  /**
+   * Código del artículo
+   */
+  private String artCod;
 
-    /**
-     * Saldo o existencias en inventario
-      */
-    private int artSaldo;
-    
+  /**
+   * Saldo a restar o aumentar
+   */
+  private int unidades;
+
+  /** 
+   * Naturaleza de la transacción 
+  */
+  private boolean naturaleza;
+
 }

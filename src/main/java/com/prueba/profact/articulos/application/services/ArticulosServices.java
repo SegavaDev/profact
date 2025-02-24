@@ -59,37 +59,39 @@ public class ArticulosServices implements IArticuloServices {
     }
 
     @Override
-    public List<Articulo> buscarPorCodigoList(final String codigo) throws ArticuloServicesException, NoFoundArticuloException {
+    public List<Articulo> buscarPorCodigoList(final String codigo)
+            throws ArticuloServicesException, NoFoundArticuloException {
         try {
             return this.ARTICULO_REPOSITORY.buscarPorCodigoList(codigo)
                     .orElseThrow(
                             () -> new NoFoundArticuloException(MensajesError.NO_ENCONTRADO.lanzar()));
 
         } catch (EmptyResultDataAccessException n) {
-            System.out.println("Mensaje error ArticulosServices/buscarPorCodigo: " + n);
+            System.out.println("Mensaje error ArticulosServices/buscarPorCodigoList: " + n);
             throw new NoFoundArticuloException(n.getMessage());
         } catch (Exception e) {
-            System.out.println("Mensaje error ArticulosServices/buscarPorCodigo: " + e);
+            System.out.println("Mensaje error ArticulosServices/buscarPorCodigoList: " + e);
             throw new ArticuloServicesException(e.getMessage());
         }
     }
 
     @Override
-    public boolean actualizarSaldo(final SharedArticuloActSaldoDTO articulo, final boolean naturaleza)
+    public boolean actualizarSaldo(final SharedArticuloActSaldoDTO articulo)
             throws ArticuloServicesException {
         try {
             Articulo artValid = this.ARTICULO_REPOSITORY.buscarPorCodigo(articulo.getArtCod()).orElse(null);
 
             if (artValid != null) {
-                if (naturaleza) {
-                    artValid.aumentarSaldo(articulo.getArtSaldo());
-                    return true;
+                if (articulo.isNaturaleza()) {
+                    artValid.aumentarSaldo(articulo.getUnidades());
                 } else {
-                    return artValid.reducirSaldo(articulo.getArtSaldo());
+                    artValid.reducirSaldo(articulo.getUnidades());
                 }
             } else {
                 return false;
             }
+
+            return this.ARTICULO_REPOSITORY.actualizar(artValid);
 
         } catch (NoResultException n) {
             System.out.println("Mensaje error ArticulosServices/actualizarSaldo: " + n);

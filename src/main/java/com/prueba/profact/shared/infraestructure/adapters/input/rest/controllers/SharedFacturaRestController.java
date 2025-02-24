@@ -51,7 +51,7 @@ public class SharedFacturaRestController {
     public ResponseEntity<ResponseData> generarFactura(@Valid @RequestBody TransaccionFactura transaccionFactura, BindingResult result) {
 
         ResponseData responseData = new ResponseData();
-
+        System.out.println(transaccionFactura.toString());
         if (result.hasErrors()) {
             List<String> errors = ErroresBindingResult.recuperarErrores(result);
 
@@ -62,7 +62,15 @@ public class SharedFacturaRestController {
         }
 
         try {
+            /** 
+             * Se guarda la factura y se retorna para obtener su id
+             */
             SharedFacturaDTO sharedFacturaDTO = this.SHARED_FACTURA_SERVICES.generarFactura(transaccionFactura.getFacturaDTO());
+            /** Asigna el id de la factura a los kardex */
+            transaccionFactura.getListKardexFacturaDTO().stream().forEach(
+                k -> k.setKrdxFactId(sharedFacturaDTO.getFactId())
+            );
+
             boolean sharedKardexDTO = this.SHARED_KARDEX_SERVICES.guardarListaKardex(transaccionFactura.getListKardexFacturaDTO());
 
             if(!sharedKardexDTO) {

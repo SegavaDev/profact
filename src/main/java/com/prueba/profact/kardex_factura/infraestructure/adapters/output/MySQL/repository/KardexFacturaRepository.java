@@ -3,6 +3,7 @@ package com.prueba.profact.kardex_factura.infraestructure.adapters.output.MySQL.
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.prueba.profact.kardex_factura.application.ports.output.IKardexFacturaRepository;
 import com.prueba.profact.kardex_factura.domain.models.KardexFactura;
@@ -28,6 +29,7 @@ public class KardexFacturaRepository implements IKardexFacturaRepository {
      * @return true si la persistencia fue exitosa
      * @throws KardexFacturaException
      */
+    @Transactional
     @Override
     public boolean guardarKardex(final List<KardexFactura> listkardexFactura) throws KardexFacturaException {
         try {

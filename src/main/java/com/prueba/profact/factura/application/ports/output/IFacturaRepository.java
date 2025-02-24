@@ -9,11 +9,27 @@ import com.prueba.profact.factura.infraestructure.adapters.output.MySQL.exceptio
 public interface IFacturaRepository {
 
   /**
-   * Genera una factura y envía a persistir
-   * @param factura factura a guardar
-   * @return la factura guardada
+   * Busca una factura por su id
+   * @param id id de la factura
+   * @return la factura
  * @throws FacturaException 
     */
-  boolean generarFactura(final Factura factura) throws FacturaException;
+  Factura buscFacturaPorId(final long id) throws FacturaException;
+
+  /**
+   * Busca una factura por el su consecutivo
+   * @param numero consecutivo
+   * @return a factural
+ * @throws FacturaException 
+    */
+  Factura buscFacturaPorNumero(final String numero) throws FacturaException;
+
+  /**
+   * Genera una factura y envía a persistir
+   * @param factura factura a guardar
+   * @return la factura fue guardada
+ * @throws FacturaException 
+    */
+  Factura generarFactura(final Factura factura) throws FacturaException;
   
 }
