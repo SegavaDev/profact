@@ -1,5 +1,24 @@
 # Profact
 
+# Prueba técnica aplicada para Somic soluciones
+
+# &#x1f5a5; Servidor frontend
+
+__Desarrollado por Sergio Garavito__
+
+## 🧰 Requisitos
+- Nodejs v22.14.0
+- Angular 19.0.0
+
+## Estructura del proyecto
+
+[Estructura del proyecto](./estructura_del_proyecto.md)
+
+# Imagen de referencia
+![Captura de pantalla](./imagen.png)
+
+# Profact
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
 
 ## Development server

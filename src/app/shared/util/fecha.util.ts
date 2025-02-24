@@ -22,6 +22,7 @@ const FORMATOS = {
  * ! La fecha debe de estar en formato string
  * @param fecha la fecha que se desea convertir a otro formato
  * @param formato el formato en el que se desea obtener la fecha, el formato por defecto es dd/mm/yyyy
+ * opciones yyyy-mm-dd y dd/mm/yyyy
  * @returns fecha en formato string
  */
 export function getFechaString(

@@ -1,5 +1,5 @@
 <div class="base">
-    <form class="base__factura">
+    <div class="base__factura">
         <div class="header__factura">
             <app-header-factura />
 
@@ -22,21 +22,33 @@
                 </div>
                 <div class="container__btn">
                     <div class="separador">
-                        <button type="submit">
+                        <button
+                            type="submit"
+                            [disabled]="blockGuardar"
+                            (click)="enviarFactura()"
+                        >
                             <span>💾</span>
                             Guardar
                         </button>
                     </div>
                     <div class="separador">
-                        <button type="button">
+                        <button
+                            type="button"
+                            (click)="agregarKrdx()"
+                            [disabled]="blockAgregar"
+                        >
                             <span>➕</span>
                             Agregar
                         </button>
                     </div>
                 </div>
             </div>
-            <form class="nit__info" [formGroup]="getForm(nomForms[0])">
-                <div class="separador separador__modDesp">
+            <form class="nit__info" [formGroup]="getForm(nomForms.cliente)">
+                <div
+                    class="separador separador__modDesp"
+                    (mouseleave)="desplegarResultados($event)"
+                    (mouseenter)="desplegarResultados($event)"
+                >
                     <label>Nit del cliente</label>
                     <input
                         type="text"
@@ -44,6 +56,7 @@
                         id="documento"
                         (input)="getNits($event)"
                         autocomplete="off"
+                        placeholder="Campo obligatorio"
                     />
                     @if(listDespNits) {
                     <ul>
@@ -56,19 +69,29 @@
                 @if(cliente){
                 <div class="separador">
                     <label>Cupo</label>
-                    <span>{{ cliente.nitCupo }}</span>
+                    <span>$ {{ cliente.nitCupo }}</span>
                 </div>
                 <div class="separador">
-                    <label>Plazo</label>
+                    <label>Plazo días</label>
                     <span>{{ cliente.nitPlazo }}</span>
                 </div>
                 <div class="separador">
                     <label>Cartera</label>
-                    <span>{{ cliente.nitCartera }}</span>
+                    <span
+                        [style]="{
+                            'background-color': cupoAlcanzado ? 'red' : 'white'
+                        }"
+                        >$ {{ cliente.nitCartera }}</span
+                    >
                 </div>
                 <div class="separador">
                     <label>Disponible</label>
-                    <span>{{ cliente.nitCupo - cliente.nitCartera }}</span>
+                    <span
+                        [style]="{
+                            'background-color': cupoAlcanzado ? 'red' : 'white'
+                        }"
+                        >$ {{ disponible }}</span
+                    >
                 </div>
                 } @else {
                 <div class="separador">
@@ -89,9 +112,16 @@
                 </div>
                 }
             </form>
-            <form class="form__articulo" [formGroup]="getForm(nomForms[1])">
+            <form
+                class="form__articulo"
+                [formGroup]="getForm(nomForms.articulo)"
+            >
                 <div class="articulo__info">
-                    <div class="separador separador__modDesp">
+                    <div
+                        class="separador separador__modDesp"
+                        (mouseleave)="desplegarResultados($event)"
+                        (mouseenter)="desplegarResultados($event)"
+                    >
                         <label>Cod. artículo</label>
                         <input
                             type="text"
@@ -99,11 +129,15 @@
                             id="codigo"
                             autocomplete="off"
                             (input)="getArticulos($event)"
+                            placeholder="Campo obligatorio"
+                            min="0"
                         />
                         @if(listDespArticulos) {
                         <ul>
                             @for (a of listArticulos; track $index) {
-                            <li (click)="selectArticulo(a)">{{ a.artCod }} {{a.artNom}}</li>
+                            <li (click)="selectArticulo(a)">
+                                {{ a.artCod }} {{ a.artNom }}
+                            </li>
                             }
                         </ul>
                         }
@@ -130,11 +164,14 @@
                     <div class="separador">
                         <label>Naturaleza</label>
                         <select
-                            (change)="validarNaturaleza($event)"
+                            (change)="obtenerNaturaleza($event)"
                             formControlName="naturaleza"
                             id="naturaleza"
                         >
-                            <option value="-" [defaultSelected]="'-'">
+                            <option
+                                value="-"
+                                [defaultSelected]="opcNaturalezas.negativa"
+                            >
                                 ➖ Salida
                             </option>
                             <option value="+">➕ Ingreso</option>
@@ -143,7 +180,14 @@
                     @if (articulo) {
                     <div class="separador">
                         <label>Saldo</label>
-                        <span>{{ articulo.artSaldo }}</span>
+                        <span
+                            [style]="{
+                                'background-color': saldoAlcanzado
+                                    ? 'red'
+                                    : 'white'
+                            }"
+                            >{{ saldo < 1 ? 0 : saldo }}</span
+                        >
                     </div>
                     } @else {
                     <div class="separador">
@@ -160,37 +204,64 @@
                             formControlName="unidades"
                             id="unidades"
                             (input)="calcularTotalesArticulo()"
+                            placeholder="Campo obligatorio"
+                            min="1"
                         />
                     </div>
+                    @if (articulo) {
                     <div class="separador">
-                        <label>Costos</label>
+                        <label>Costo unidad</label>
+                        @if (naturaleza) {
                         <input
-                            type="text"
+                            type="number"
                             formControlName="costos"
                             id="costos"
                             (input)="calcularTotalesArticulo()"
+                            placeholder="Campo opcional"
+                            min="1"
+                            max="{{ articulo.artPrecVenta }}"
                         />
+                        } @else {
+                        <span>{{ articulo.artCosto }}</span>
+                        }
                     </div>
                     <div class="separador">
-                        <label>Precio venta</label>
+                        <label>Precio venta unidad</label>
+                        @if (!naturaleza) {
                         <input
                             type="number"
                             formControlName="precioVenta"
                             id="precioVenta"
                             (input)="calcularTotalesArticulo()"
+                            placeholder="Campo opcional"
                         />
+                        } @else {
+                        <span>0</span>
+                        }
                     </div>
 
-                    @if (articulo) {
                     <div class="separador">
                         <label>Total costo</label>
-                        <span>{{ totalCosto }}</span>
+                        <span>$ {{ totalCostos }}</span>
                     </div>
+                    @if (!naturaleza) {
                     <div class="separador">
                         <label>Total venta</label>
-                        <span>{{ totalVenta }}</span>
+                        <span
+                            [style]="{
+                                'background-color': cupoAlcanzado
+                                    ? 'red'
+                                    : 'white'
+                            }"
+                            >$ {{ totalVentas }}</span
+                        >
                     </div>
-                    } @else {
+                    }@else {
+                    <div class="separador">
+                        <label>Total venta</label>
+                        <span>$ 0</span>
+                    </div>
+                    } } @else {
                     <div class="separador">
                         <label>Total costo</label>
                         <span></span>
@@ -203,5 +274,25 @@
                 </div>
             </form>
         </div>
-    </form>
+
+        <app-grilla-factura
+            [data]="listKardex"
+            (codEliminar)="eliminarCodKrdx($event)"
+        />
+
+        <div class="barra__totales">
+            <div class="img__container">
+                <img src="logo.png" alt="" />
+                <h1>Profact</h1>
+            </div>
+            <div class="totales">
+                <label>Total costos</label>
+                <span>$ {{ totalCostosFact }}</span>
+            </div>
+            <div class="totales">
+                <label>Total venta</label>
+                <span>$ {{ totalVentasFact }}</span>
+            </div>
+        </div>
+    </div>
 </div>

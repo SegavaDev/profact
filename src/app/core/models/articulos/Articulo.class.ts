@@ -65,5 +65,4 @@ export class Articulo {
     public set artPrecVenta(value) {
         this._artPrecVenta = value;
     }
-    
 }
