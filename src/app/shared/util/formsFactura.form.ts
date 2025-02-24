@@ -13,9 +13,9 @@ export function formsEnFactura(): FormGroup {
         articulo: form.group({
             codigo: ["",[Validators.required] ],
             naturaleza: ["", [Validators.required]],
-            unidades: ["", [Validators.required]],
+            unidades: ["0", [Validators.required]],
             costos: ["", [Validators.required]],
-            precioVenta: ["", [Validators.required]]
+            precioVenta: ["0", [Validators.required]]
         })
     })
 }

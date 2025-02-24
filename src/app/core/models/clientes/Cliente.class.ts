@@ -38,8 +38,8 @@ export class Cliente {
     public get nitCartera() {
         return this._nitCartera;
     }
-    public set nitCartera(value) {
+
+    public set nitCartera(value: number) {
         this._nitCartera = value;
     }
-
 }
