@@ -5,16 +5,23 @@ import java.io.Serializable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @RequiredArgsConstructor
 @Getter
 @Setter
+@ToString
 public class SharedKardexFacturaDTO implements Serializable {
 
   /**
    * Id o llave foránea del artículo relacionado
    */
   private long krdxArtId;
+
+  /**
+   * Id o llave foránea del artículo relacionado
+   */
+  private long krdxFactId;
 
   /**
    * Código del artículo
@@ -39,7 +46,7 @@ public class SharedKardexFacturaDTO implements Serializable {
   /** 
    * Unidades adquiridas del artículo
   */
-  private long krdxUnds;
+  private int krdxUnds;
 
   /** Total de la venta */
   private double krdxTotalVnta;

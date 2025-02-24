@@ -1,7 +1,6 @@
 package com.prueba.profact.factura.domain.mappers;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.prueba.profact.factura.domain.models.Factura;
@@ -21,8 +20,6 @@ public interface FacturaDomainMapper {
    * @param sharedFacturaDTO clase compartida
    * @return clase de dominio
     */
-  @Mapping(target = "factId", ignore = true)
-  @Mapping(target = "krdxFactIds", ignore = true)
   Factura sharedDtoToBase(final SharedFacturaDTO sharedFacturaDTO);
 
   /**

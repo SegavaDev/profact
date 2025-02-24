@@ -11,6 +11,7 @@ import com.prueba.profact.nits.application.exceptions.NoFoundNitException;
 import com.prueba.profact.nits.application.ports.input.INitServices;
 import com.prueba.profact.nits.application.ports.output.INitRepository;
 import com.prueba.profact.nits.domain.models.Nit;
+import com.prueba.profact.nits.infraestructure.adapters.output.MySQL.models.dtos.NitActCarteraDto;
 import com.prueba.profact.shared.domain.models.enums.MensajesError;
 
 import jakarta.persistence.NoResultException;
@@ -77,6 +78,21 @@ public class NitServices implements INitServices {
             throw new NoResultException(n.getMessage());
         } catch (Exception e) {
             System.out.println("Mensaje error NitServices/actualizarSaldo: " + e);
+            throw new NitServicesException(e.getMessage());
+        }
+    }
+
+    /** 
+     * Actualiza la cartera del cliente/nit
+          * @throws NitServicesException 
+          */
+         @Override
+         public long actualizar(final NitActCarteraDto nitActCarteraDto) throws NitServicesException {
+        try {
+            return this.NIT_REPOSITORY.actualizar(nitActCarteraDto);
+
+        } catch (Exception e) {
+            System.out.println("Mensaje error NitServices/actualizar cartera: " + e);
             throw new NitServicesException(e.getMessage());
         }
     }

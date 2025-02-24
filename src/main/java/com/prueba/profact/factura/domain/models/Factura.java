@@ -1,7 +1,6 @@
 package com.prueba.profact.factura.domain.models;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -46,8 +45,4 @@ public class Factura {
    * Total de costos (suma de todos los artículos)
    */
   private double factTotalCost;
-
-  /** Ids de kardex o detalles de la factura */
-  private List<Long> krdxFactIds;
-
 }

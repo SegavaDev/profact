@@ -45,11 +45,10 @@ public interface IArticuloServices {
    * Actualiza el saldo en inventario de un artículo
    * 
    * @param articulo   el articulo que se va a afectar
-   * @param naturaleza true para aumentar su valor, false para disminuir
    * @return true si fue posible actualizar el saldo
    * @throws ArticuloServicesException maneja las excepciones
    */
-  boolean actualizarSaldo(final SharedArticuloActSaldoDTO articulo, final boolean naturaleza)
+  boolean actualizarSaldo(final SharedArticuloActSaldoDTO articulo)
       throws ArticuloServicesException;
 
 }

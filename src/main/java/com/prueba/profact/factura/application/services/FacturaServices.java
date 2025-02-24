@@ -58,11 +58,12 @@ public class FacturaServices implements IFacturaServices {
     @Override
     public Factura generarFactura(final Factura factura) throws ConsecutivoFacturaException {
         try {
-            if(this.FACTURA_REPOSITORY.generarFactura(factura)) {
+            Factura rpFactura = this.FACTURA_REPOSITORY.generarFactura(factura);
+            if(rpFactura != null) {
                 if(this.asignarConsecutivo(factura.getFactId(), factura.getFactNum())) {
                     System.out.println("\nFactura " + factura.getFactNum() + " asignada a consecutivo exitosamente.\n");
                 }
-                return factura;
+                return rpFactura;
             }
             else {
                 throw new NoCreateFactException(MensajesError.FACTURA_NO_CREADA.lanzar());

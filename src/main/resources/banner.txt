@@ -1,0 +1,11 @@
+.______   .______        ______    _______    ___       ______ .___________.
+|   _  \  |   _  \      /  __  \  |   ____|  /   \     /      ||           |
+|  |_)  | |  |_)  |    |  |  |  | |  |__    /  ^  \   |  ,----'`---|  |----`
+|   ___/  |      /     |  |  |  | |   __|  /  /_\  \  |  |         |  |     
+|  |      |  |\  \----.|  `--'  | |  |    /  _____  \ |  `----.    |  |     
+| _|      | _| `._____| \______/  |__|   /__/     \__\ \______|    |__|     
+                                                                            
+Desarrollada por Sergio Garavito
+Github: https://github.com/SegavaDev
+${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}

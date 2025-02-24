@@ -2,7 +2,6 @@ package com.prueba.profact.factura.infraestructure.adapters.input.rest.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +41,5 @@ public class FacturaDTO implements Serializable {
    * Total de costos (suma de todos los artículos)
    */
   private double factTotalCost;
-  
-  /** Ids de kardex o detalles de la factura */
-  private List<Long> krdxFactIds;
 
 }
